@@ -1,0 +1,25 @@
+---
+packages:
+- name: gof3r
+  version: 96b8ccc171ab78a4602e05e8de5fc4ffa20603e5
+  fingerprint: 96b8ccc171ab78a4602e05e8de5fc4ffa20603e5
+  sha1: d5772ee8a4c16535a1a260df3f0c8810bc2e1cac
+  dependencies: []
+- name: pgbackup
+  version: 9aa1e5b1113f49ddd33d74ceaae910292f6352ff
+  fingerprint: 9aa1e5b1113f49ddd33d74ceaae910292f6352ff
+  sha1: 8c8946ac24717d830eb7183a3ee180e5e6763ffc
+  dependencies: []
+jobs:
+- name: pgbackup
+  version: 6aadc37c6014dff22b7ee87f14af24aada95e0aa
+  fingerprint: 6aadc37c6014dff22b7ee87f14af24aada95e0aa
+  sha1: c22b21cf7b7ac53d946982324130937d33c389de
+license:
+  version: 6266e6d72460e0aaccda244014590b4b647434ef
+  fingerprint: 6266e6d72460e0aaccda244014590b4b647434ef
+  sha1: 12c7266a809e4e93927cbb39d7834a60237c0bc5
+commit_hash: 1f77c38f
+uncommitted_changes: true
+name: pgbackup
+version: '1'
