@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+
+source "$(dirname $(dirname ${0}))/shell/env"
+set +e # do not want to auto-die - instead, log and continue
+# FIXME: use pgbackup.debug
+
+TIMESTAMP=$(date +%Y/%m/%d/%Y%m%d%H%M%S)
+
+# Environment for postgres commands
+PGHOST="<%= p('pgbackup.host') %>"
+PGPORT="<%= p('pgbackup.port') %>"
+PGUSER="<%= p('pgbackup.username') %>"
+PGPASSWORD="<%= p('pgbackup.password') %>"
+export PGHOST PGPORT PGUSER PGPASSWORD
+echo "export PGHOST=$PGHOST"
+echo "export PGPORT=$PGPORT"
+echo "export PGUSER=$PGUSER"
+
+PG_DUMP="${pkgPath}/bin/pg_dumpall"
+GOF3R="/var/vcap/packages/gof3r/bin/gof3r"
+
+AWS_ACCESS_KEY_ID="<%= p('pgbackup.s3.access_key_id') %>"
+AWS_SECRET_ACCESS_KEY="<%= p('pgbackup.s3.secret_access_key') %>"
+export AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY
+
+S3_BUCKET="<%= p('pgbackup.s3.bucket') %>"
+S3_PATH="/<%= p('pgbackup.s3.path') %>"
+
+backup_databases() {
+	local opts="-c --no-password <%= p('pgbackup.pgdump.arguments') %>"
+	local name="<%= p('pgbackup.name') %>"
+
+	s3_file=$(echo "${S3_PATH}/${TIMESTAMP}-${name}.gz" | sed 's|/\+|/|g')
+	echo ">> ${PG_DUMP} ${opts} -> S3 ${S3_BUCKET}:${s3_file}"
+	${PG_DUMP} ${opts} | gzip | ${GOF3R} put -b ${S3_BUCKET} -k "${s3_file}"
+
+	if [[ $? == 0 ]]; then
+		echo "backed up successfully"
+	else
+		echo "FAILED to back up!"
+	fi
+}
+
+echo "pgbackup starting up"
+# FIXME: acquire a lock to ensure we aren't running simultaneous dumps
+
+backup_databases
+
+# FIXME: release lock for the next run
+echo "pgbackup shutting down"
+exit 0

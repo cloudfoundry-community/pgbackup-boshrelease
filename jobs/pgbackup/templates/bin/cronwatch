@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+source "$(dirname $(dirname ${0}))/shell/env"
+trap graceful_stop SIGTERM
+
+target_file=${1:?Usage: $0 TARGET-FILE SOURCE-FILE}
+source_file=${2:?Usage: $0 TARGET-FILE SOURCE-FILE}
+
+while true
+do
+	if ! diff -q ${target_file} ${source_file} &>/dev/null
+	then
+		echo "cronwatch: updating ${target_file} from ${source_file}"
+		cp ${source_file} ${target_file}
+	fi
+
+	sleep 10
+done

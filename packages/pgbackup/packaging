@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -e
+
+package="pgbackup"
+version="9.4.4"
+file="postgresql-${version}.tar.gz"
+
+tar zxvf ${package}/${file}
+
+cd ${file//.tar*}
+
+./configure --prefix=${BOSH_INSTALL_TARGET}
+
+make
+
+make install

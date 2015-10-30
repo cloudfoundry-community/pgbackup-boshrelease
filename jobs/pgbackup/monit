@@ -1,0 +1,5 @@
+check process pgbackup
+  with pidfile /var/vcap/sys/run/pgbackup/pgbackup.pid
+  start program "/var/vcap/jobs/pgbackup/bin/control start" with timeout 30 seconds
+  stop program "/var/vcap/jobs/pgbackup/bin/control stop"
+  group vcap

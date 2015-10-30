@@ -1,0 +1,2 @@
+# pgbackup cron.d entry
+<%= p('pgbackup.schedule.minute') %> <%= p('pgbackup.schedule.hour') %> <%= p('pgbackup.schedule.monthday') %> <%= p('pgbackup.schedule.month') %> <%= p('pgbackup.schedule.weekday') %> root /var/vcap/jobs/pgbackup/bin/pgbackup

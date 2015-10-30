@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+package="gof3r"
+version="0.4.10"
+file="${package}-${version}.tar.gz"
+url="https://github.com/rlmcpherson/s3gof3r/releases/download/v${version}/${package}_${version}_linux_amd64.tar.gz"
+
+if [[ ! -s "${package}/${file}" ]]
+then
+  mkdir -p ${package}
+  curl -Ls "${url}" -o "${package}/${file}"
+fi

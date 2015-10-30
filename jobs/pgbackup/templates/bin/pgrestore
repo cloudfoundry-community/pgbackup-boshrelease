@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+s3=${1:?Usage: $0 <file>}
+
+# Environment for postgres commands
+PGHOST="<%= p('pgbackup.host') %>"
+PGPORT="<%= p('pgbackup.port') %>"
+PGUSER="<%= p('pgbackup.username') %>"
+PGPASSWORD="<%= p('pgbackup.password') %>"
+export PGHOST PGPORT PGUSER PGPASSWORD
+echo "set PGHOST=$PGHOST"
+echo "set PGPORT=$PGPORT"
+echo "set PGUSER=$PGUSER"
+
+PG_RESTORE="/var/vcap/packages/pgbackup/bin/psql"
+GOF3R="/var/vcap/packages/gof3r/bin/gof3r"
+
+AWS_ACCESS_KEY_ID="<%= p('pgbackup.s3.access_key_id') %>"
+AWS_SECRET_ACCESS_KEY="<%= p('pgbackup.s3.secret_access_key') %>"
+export AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY
+
+S3_BUCKET="<%= p('pgbackup.s3.bucket') %>"
+
+# extra 'cat' in the pipeline is necessary because pg_restore closes stdin
+# which gof3r does not expect, and consequently panics...
+${GOF3R} get -b ${S3_BUCKET} -k "${s3}" | gunzip -c | ${PG_RESTORE} -d postgres
+
+if [[ $? == 0 ]]; then
+	echo "Restoration complete!"
+else
+	echo "Failed to restore!"
+fi
+
+exit 0

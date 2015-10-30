@@ -1,14 +1,14 @@
 ---
 meta:
-  environment: NAME
+  environment: ENVIRONMENT
   dns_root: microbosh
   security_groups:
-    - postgresbackup
+    - pgbackup
   stemcell:
     name: STEMCELL
 
-director_uuid: PLACEHOLDER-DIRECTOR-UUID
+director_uuid: DIRECTOR-UUID
 
 releases:
-  - name: postgresbackup
+  - name: pgbackup
     version: latest

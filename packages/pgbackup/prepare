@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+package="pgbackup"
+version="9.4.4"
+file="postgresql-${version}.tar.gz"
+url="https://ftp.postgresql.org/pub/source/v${version}/postgresql-${version}.tar.gz"
+
+if [[ ! -s "${package}/${file}" ]]
+then
+  mkdir -p ${package}
+  curl -s "${url}" -o "${package}/${file}"
+fi

@@ -9,15 +9,19 @@ update:
   serial: false
 
 jobs:
-  - name: just_install_packages
+  - name: pgbackup
     templates:
-    - name: just_install_packages
-      release: postgresbackup
-    instances: 1
-    persistent_disk: 0
+    - name: pgbackup
+      release: pgbackup
+    instances: 0
     resource_pool: small_z1
-    networks: (( param "please set just_install_package networks" ))
+    networks: (( merge ))
+    persistent_disk: 0
+    update:
+      canaries: 10
+    properties:
+      pgbackup:
 
-networks: (( param "please set networks" ))
+networks: (( merge ))
 
 properties: {}

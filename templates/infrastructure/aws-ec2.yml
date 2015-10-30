@@ -1,0 +1,37 @@
+---
+meta:
+  environment: (( merge ))
+  dns_root: (( merge ))
+  security_groups: (( merge ))
+  persistent_disk: 4096
+
+  stemcell:
+    name: bosh-aws-xen-ubuntu
+    version: latest
+
+jobs:
+  - name: pgbackup
+    instances: 2
+    networks:
+      - name: pgbackup
+    persistent_disk: (( meta.persistent_disk ))
+    properties:
+      pgbackup:
+
+compilation:
+  cloud_properties:
+    instance_type: m1.small
+
+resource_pools:
+  - name: small_z1
+    cloud_properties:
+      instance_type: m1.small
+
+networks:
+  - name: floating
+    type: vip
+    cloud_properties: {}
+  - name: pgbackup
+    type: dynamic
+    cloud_properties:
+      security_groups: (( meta.security_groups ))

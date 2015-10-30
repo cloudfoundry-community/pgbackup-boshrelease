@@ -1,0 +1,65 @@
+---
+name: pgbackup
+packages:
+- pgbackup
+- gof3r
+templates:
+  bin/control: bin/control
+  bin/cronwatch: bin/cronwatch
+  bin/pgbackup: bin/pgbackup
+  bin/pgrestore: bin/pgrestore
+  config/pgbackup.cron: config/pgbackup.cron
+  shell/env: shell/env
+  shell/functions: shell/functions
+properties:
+  pgbackup.debug:
+    description: "Enable debug output, can be 'true' or 'false' (default)."
+    default: "false"
+  pgbackup.name:
+    description: "Name of the backup to create - will be <timestamp>-<name>.tar"
+    default: pgdumpall
+  pgbackup.host:
+    description: "Hostname or IP address to connect to PostgreSQL on"
+    default: "localhost"
+  pgbackup.port:
+    description: "TCP port to connect to PostgreSQL on"
+    default: 5432
+  pgbackup.username:
+    description: "User to connect to PostgreSQL as"
+    default: "pgbackup"
+  pgbackup.password:
+    description: "Password to authenticate to PostgreSQL with"
+    default: "PLEASE-CHANGE-THIS"
+
+  pgbackup.pgdump.arguments:
+    description: "Extra arguments to pass to PostgreSQL's pg_dump utility"
+    default: ""
+
+  pgbackup.schedule.minute:
+    description: "Backup schedule - minute (00-59)"
+    default: "00"
+  pgbackup.schedule.hour:
+    description: "Backup schedule - hour (00-23)"
+    default: "01"
+  pgbackup.schedule.monthday:
+    description: "Backup schedule - day of the month (1-31, or *)"
+    default: "*"
+  pgbackup.schedule.month:
+    description: "Backup schedule - month (1-12, or *)"
+    default: "*"
+  pgbackup.schedule.weekday:
+    description: "Backup schedule - weekday (0-7, sun/mon/tue/etc., or *)"
+    default: "*"
+
+  pgbackup.s3.bucket:
+    description: "Amazon S3 bucket to store backups in"
+    default: "pgbackup"
+  pgbackup.s3.path:
+    description: "Path to prepend to backup filenames when storing in Amazon S3"
+    default: ""
+  pgbackup.s3.access_key_id:
+    description: "Access Key ID for storing backups in Amazon S3"
+    default: ""
+  pgbackup.s3.secret_access_key:
+    description: "Secret Access key for storing backups in Amazon S3"
+    default: ""

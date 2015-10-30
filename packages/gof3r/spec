@@ -1,0 +1,5 @@
+---
+name: gof3r
+dependencies: []
+files:
+  - gof3r/gof3r-*

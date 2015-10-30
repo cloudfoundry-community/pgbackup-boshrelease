@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+source "$(dirname $(dirname ${0}))/shell/env"
+
+trap graceful_stop SIGTERM # Handle term signal sent by control script stop action.
+
+if [[ -z ${1:-} ]] ; then fail "usage: $0 start|stop" ; fi ; action=$1 ; shift
+case ${action} in
+  (start)
+    echo $$ > ${pidFile}
+    user exec ${jobPath}/bin/cronwatch /etc/cron.d/pgbackup ${jobPath}/config/pgbackup.cron
+    ;;
+  (stop)
+    send_signal TERM
+    ;;
+  (*)
+    fail "Unknown action , usage: $0 start|stop"
+    ;;
+esac
