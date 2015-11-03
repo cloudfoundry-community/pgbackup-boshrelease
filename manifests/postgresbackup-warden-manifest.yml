@@ -88,13 +88,7 @@ networks:
     reserved:
     - 10.244.2.37
     static: []
-properties:
-  pgbackup:
-    host: 127.0.0.1
-    name: backups
-    password: ""
-    port: 5524
-    version: "9.4"
+properties:{}
 releases:
 - name: pgbackup
   version: latest
