@@ -1,0 +1,15 @@
+set -e
+
+package="postgres93"
+version="9.3.10"
+file="postgresql-${version}.tar.gz"
+
+tar zxvf ${package}/${file}
+
+cd ${file//.tar*}
+
+./configure --prefix=${BOSH_INSTALL_TARGET}
+
+make
+
+make install

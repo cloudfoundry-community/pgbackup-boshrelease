@@ -3,6 +3,13 @@ name: pgbackup
 packages:
 - pgbackup
 - gof3r
+- postgres90
+- postgres91
+- postgres92
+- postgres93
+- postgres94
+- postgres95
+
 templates:
   bin/control: bin/control
   bin/cronwatch: bin/cronwatch
@@ -30,6 +37,9 @@ properties:
   pgbackup.password:
     description: "Password to authenticate to PostgreSQL with"
     default: "PLEASE-CHANGE-THIS"
+  pgbackup.version:
+    description: "Version of PostgreSQL to be backed up/restored"
+    default: "9.5"
 
   pgbackup.pgdump.arguments:
     description: "Extra arguments to pass to PostgreSQL's pg_dump utility"

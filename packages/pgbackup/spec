@@ -2,4 +2,4 @@
 name: pgbackup
 dependencies: []
 files:
-  - pgbackup/postgresql-*
+  - pgbackup/postgres*

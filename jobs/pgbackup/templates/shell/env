@@ -40,4 +40,3 @@ add_packages_to_path
 configure_job_paths
 
 set_pid
-
