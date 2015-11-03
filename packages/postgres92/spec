@@ -1,0 +1,5 @@
+---
+name: postgres92
+dependencies: []
+files:
+- postgres92/postgresql-9.2.14.tar.gz
