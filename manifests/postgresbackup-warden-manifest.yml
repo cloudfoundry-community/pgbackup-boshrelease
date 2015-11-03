@@ -88,7 +88,7 @@ networks:
     reserved:
     - 10.244.2.37
     static: []
-properties:{}
+properties: {}
 releases:
 - name: pgbackup
   version: latest
