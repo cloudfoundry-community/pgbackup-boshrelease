@@ -4,7 +4,7 @@ compilation:
   network: pgbackup
   reuse_compilation_vms: true
   workers: 6
-director_uuid: 4796378f-cc91-4d93-a1b0-75a9af101708
+director_uuid: 9bca5701-66c0-43ee-a4d0-64813b4b5ece
 jobs:
 - instances: 1
   name: pgbackup
@@ -12,8 +12,6 @@ jobs:
   - name: pgbackup
     static_ips: null
   persistent_disk: 0
-  properties:
-    pgbackup: null
   resource_pool: small_z1
   templates:
   - name: pgbackup
@@ -90,7 +88,13 @@ networks:
     reserved:
     - 10.244.2.37
     static: []
-properties: {}
+properties:
+  pgbackup:
+    host: 127.0.0.1
+    name: backups
+    password: ""
+    port: 5524
+    version: "9.4"
 releases:
 - name: pgbackup
   version: latest
@@ -101,7 +105,7 @@ resource_pools:
   network: pgbackup
   size: 1
   stemcell:
-    name: bosh-warden-boshlite-centos-go_agent
+    name: bosh-warden-boshlite-ubuntu-trusty-go_agent
     version: latest
 update:
   canaries: 1
@@ -109,4 +113,3 @@ update:
   max_in_flight: 50
   serial: false
   update_watch_time: 1000-30000
-

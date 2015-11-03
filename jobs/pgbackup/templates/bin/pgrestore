@@ -7,12 +7,32 @@ PGHOST="<%= p('pgbackup.host') %>"
 PGPORT="<%= p('pgbackup.port') %>"
 PGUSER="<%= p('pgbackup.username') %>"
 PGPASSWORD="<%= p('pgbackup.password') %>"
-export PGHOST PGPORT PGUSER PGPASSWORD
+<%
+pgversion = case p('pgbackup.version')
+when 9.5, "9.5"
+  "postgres95"
+when 9.4, "9.4"
+  "postgres94"
+when 9.3, "9.3"
+  "postgres93"
+when 9.2, "9.2"
+  "postgres92"
+when 9.1, "9.1"
+  "postgres91"
+when 9.0, "9.0"
+  "postgres90"
+else
+  "postgres95"
+end
+%>
+PGVERSION= "<%= p('pgbackup.version') %>"
+export PGHOST PGPORT PGUSER PGPASSWORD PGVERSION
 echo "set PGHOST=$PGHOST"
 echo "set PGPORT=$PGPORT"
 echo "set PGUSER=$PGUSER"
+echo "set PGVERSION=$PGVERSION"
 
-PG_RESTORE="/var/vcap/packages/pgbackup/bin/psql"
+PG_RESTORE="/var/vcap/packages/${PGVERSION}/bin/psql"
 GOF3R="/var/vcap/packages/gof3r/bin/gof3r"
 
 AWS_ACCESS_KEY_ID="<%= p('pgbackup.s3.access_key_id') %>"
