@@ -73,3 +73,6 @@ properties:
   pgbackup.s3.secret_access_key:
     description: "Secret Access key for storing backups in Amazon S3"
     default: ""
+  pgbackup.s3.endpoint:
+    description: "endpoint for backup/restore"
+    default: "s3.amazonaws.com"
