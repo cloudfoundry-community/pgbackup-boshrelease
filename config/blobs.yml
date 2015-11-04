@@ -7,3 +7,31 @@ pgbackup/postgresql-9.4.4.tar.gz:
   object_id: e70caa92-b302-43d3-8651-088c036ca6d2
   sha: b0017802cb1f03d9eca5892b70e5173ed0c17539
   size: 23113477
+pgbackup/postgresql-9.0.23.tar.gz:
+  object_id: 9cdadc76-5d8d-40b4-88c1-0b6938c6daf9
+  sha: bd793e6191a187f680566de00fa5ac8a149fb7e0
+  size: 19776342
+postgres90/postgresql-9.0.23.tar.gz:
+  object_id: 1d06ad67-1d80-4568-aa52-cc009b560b6e
+  sha: bd793e6191a187f680566de00fa5ac8a149fb7e0
+  size: 19776342
+postgres91/postgresql-9.1.19.tar.gz:
+  object_id: 413f762a-f772-4cd4-bd31-82297be35354
+  sha: afcafdb706e2fe372dadfdaa1552062319e52adc
+  size: 20653781
+postgres92/postgresql-9.2.14.tar.gz:
+  object_id: 2b42d615-894b-4574-8d41-93951fb8a17f
+  sha: 1620d11e6794aa3eec70d8308c909c6959fbe4f3
+  size: 21555179
+postgres93/postgresql-9.3.10.tar.gz:
+  object_id: 8802eff0-09a5-4c3d-8a84-307dec65d96d
+  sha: a3853c4c8b74a94a5fc1491312150c2cfc8737bb
+  size: 22256318
+postgres94/postgresql-9.4.5.tar.gz:
+  object_id: 00af084a-7b1e-421c-97f1-18319bec4446
+  sha: 5278d04093f3cb2e00796fae15b2e33406844d01
+  size: 23211720
+postgres95/postgresql-9.5beta1.tar.gz:
+  object_id: 2c204877-0297-48e6-901e-bf5331442a94
+  sha: 6a5fe49efb50e235044dc9abdf4c12c423696d0d
+  size: 23836877
