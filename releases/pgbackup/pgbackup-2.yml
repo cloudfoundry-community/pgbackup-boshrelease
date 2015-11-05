@@ -1,0 +1,55 @@
+---
+packages:
+- name: gof3r
+  version: 96b8ccc171ab78a4602e05e8de5fc4ffa20603e5
+  fingerprint: 96b8ccc171ab78a4602e05e8de5fc4ffa20603e5
+  sha1: d5772ee8a4c16535a1a260df3f0c8810bc2e1cac
+  dependencies: []
+- name: pgbackup
+  version: 0f8ef9effa53397afe951476a7b982bceb209b53
+  fingerprint: 0f8ef9effa53397afe951476a7b982bceb209b53
+  sha1: 24281b3fe94a03cc6ad5e28743785547ced44d26
+  dependencies: []
+- name: postgres90
+  version: 438bf26645af528960dfdf0ba7a63b0cea7927c8
+  fingerprint: 438bf26645af528960dfdf0ba7a63b0cea7927c8
+  sha1: 2e98df0ea1bddbb2578e6f9204e55fdb08f316c5
+  dependencies: []
+- name: postgres91
+  version: 475f8cf6fa5e802be92c8820b5da1b165abb52c2
+  fingerprint: 475f8cf6fa5e802be92c8820b5da1b165abb52c2
+  sha1: f1f8a4cba1b23feeb930f592402cad9ae3730097
+  dependencies: []
+- name: postgres92
+  version: 22be9eabf81fdeffdb0a3571c561d292bf5cdbcc
+  fingerprint: 22be9eabf81fdeffdb0a3571c561d292bf5cdbcc
+  sha1: 90ea31f18172c3109af277477b7d748a1b6177f8
+  dependencies: []
+- name: postgres93
+  version: 86e106b6b7a43a7431c4f370367d1678510f7f48
+  fingerprint: 86e106b6b7a43a7431c4f370367d1678510f7f48
+  sha1: 1ecea4421b8c67bcacc543e6c0d106efc0722a44
+  dependencies: []
+- name: postgres94
+  version: ce706a91f5e5f5089b7a7810dff04e3599ff4f1b
+  fingerprint: ce706a91f5e5f5089b7a7810dff04e3599ff4f1b
+  sha1: e7ff38b0822e2cac72255351890b1cfbd7baeb1e
+  dependencies: []
+- name: postgres95
+  version: 6a2067d9aba08ca6d105e591034159fab02bd63c
+  fingerprint: 6a2067d9aba08ca6d105e591034159fab02bd63c
+  sha1: 7a7c50617d2d489860c0cc7b5c629b819036e501
+  dependencies: []
+jobs:
+- name: pgbackup
+  version: 54a0e739c6c618fc97664635fda08efa3eb3d326
+  fingerprint: 54a0e739c6c618fc97664635fda08efa3eb3d326
+  sha1: 5e33783e73423597070f6e080bc4a3691787cf1c
+license:
+  version: 6266e6d72460e0aaccda244014590b4b647434ef
+  fingerprint: 6266e6d72460e0aaccda244014590b4b647434ef
+  sha1: 12c7266a809e4e93927cbb39d7834a60237c0bc5
+commit_hash: c01e71c1
+uncommitted_changes: true
+name: pgbackup
+version: '2'
