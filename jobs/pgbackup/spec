@@ -27,13 +27,13 @@ properties:
     default: pgdumpall
   pgbackup.host:
     description: "Hostname or IP address to connect to PostgreSQL on"
-    default: "localhost"
+    default: "127.0.0.1"
   pgbackup.port:
     description: "TCP port to connect to PostgreSQL on"
     default: 5432
   pgbackup.username:
     description: "User to connect to PostgreSQL as"
-    default: "pgbackup"
+    default: "PLEASE-CHANGE-THIS"
   pgbackup.password:
     description: "Password to authenticate to PostgreSQL with"
     default: "PLEASE-CHANGE-THIS"
@@ -62,10 +62,10 @@ properties:
     default: "*"
 
   pgbackup.s3.bucket:
-    description: "Amazon S3 bucket to store backups in"
+    description: "S3 bucket to store backups in"
     default: "pgbackup"
   pgbackup.s3.path:
-    description: "Path to prepend to backup filenames when storing in Amazon S3"
+    description: "Path to prepend to backup filenames when storing in S3 storage"
     default: ""
   pgbackup.s3.access_key_id:
     description: "Access Key ID for storing backups in Amazon S3"
@@ -76,3 +76,16 @@ properties:
   pgbackup.s3.endpoint:
     description: "endpoint for backup/restore"
     default: "s3.amazonaws.com"
+
+  pgbackup.s3.proxy.host:
+    description: "Hostname or Ip address of the proxy server, http://your_proxy_server. Set an empty string to not configure any proxy (this is the default)."
+    default: ""
+  pgbackup.s3.proxy.port:
+    description: "Port used to achieve the proxy server"
+    default: "3128"
+  pgbackup.s3.proxy.user:
+    description: "Username used in http proxy basic authentication. Setting an empty string will skip proxy authentication (this is the default)."
+    default: ""
+  pgbackup.s3.proxy.password:
+    description: "Password used in http proxy basic authentication. Setting an empty string will skip proxy authentication (this is the default)."
+    default: ""

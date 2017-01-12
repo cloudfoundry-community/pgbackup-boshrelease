@@ -2,4 +2,4 @@
 name: gof3r
 dependencies: []
 files:
-  - gof3r/gof3r-*
+  - gof3r/gof3r-0.4.10.tar.gz

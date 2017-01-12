@@ -31,7 +31,7 @@ usage() {
   echo "
 Usage: $0 <prepare|blobs|manifest|release|destroy> [options]
 Where [options] for the 'prepare', 'manifest' and 'stemcell' actions are:
-  'warden' or 'aws-ec2'
+  'warden' or 'aws-ec2' or 'openstack'
 "
 }
 
@@ -109,6 +109,20 @@ prepare_stemcell() {
           ;;
         (centos)
           stemcellURL="https://bosh.io/d/stemcells/bosh-warden-boshlite-centos-go_agent"
+          ;;
+        (*)
+          fail "Unknown Stemcell OS '${stemcellOS}'"
+          ;;
+      esac
+      ;;
+     (openstack)
+      if ! [[ "${directorName}" =~ "Bosh Lite Director" ]]
+      then fail "No BOSH Lite  bosh-lite with openstack CPI.\nPlease use 'bosh target' first."
+      fi
+      hypervisor="kvm"
+      case ${stemcellOS} in
+        (ubuntu)
+          stemcellURL="https://bosh.io/d/stemcells/bosh-openstack-kvm-ubuntu-trusty-go_agent"
           ;;
         (*)
           fail "Unknown Stemcell OS '${stemcellOS}'"

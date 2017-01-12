@@ -2,6 +2,27 @@
 
 s3=${1:?Usage: $0 <file>}
 
+# begin proxy configuration
+proxy_host="<%= p('pgbackup.s3.proxy.host') %>"
+proxy_port="<%= p('pgbackup.s3.proxy.port') %>"
+proxy_username="<%= p('pgbackup.s3.proxy.user') %>"
+proxy_password="<%= p('pgbackup.s3.proxy.password') %>"
+
+# check the proxy use a username/password authentication
+if [[ "$proxy_username" == "" ]] || [[ "$proxy_password" == "" ]]; then
+proxy=${proxy_host}:${proxy_port}
+else
+proxy=${proxy_username}:${proxy_password}@${proxy_host}:${proxy_port}
+fi
+
+#--- export proxy parameters
+if [[ $proxy_host != "" ]]; then
+export http_proxy="$proxy"
+export https_proxy="$proxy"
+fi
+# end proxy support
+
+
 # Environment for postgres commands
 PGHOST="<%= p('pgbackup.host') %>"
 PGPORT="<%= p('pgbackup.port') %>"
@@ -33,6 +54,15 @@ echo "set PGHOST=$PGHOST"
 echo "set PGPORT=$PGPORT"
 echo "set PGUSER=$PGUSER"
 echo "set PGVERSION=$PGVERSION"
+
+# activate debug mode implies storing passwords in logs file,
+# don't forget to disable it
+if [[ $debug_mode == "true" ]]; then
+echo "(debug mode) export  PGPASSWORD=$PGPASSWORD"
+echo "(debug mode) export  AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID"
+echo "(debug mode) export  AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY"
+set -x
+fi
 
 PG_RESTORE="/var/vcap/packages/${PGVERSION}/bin/psql"
 GOF3R="/var/vcap/packages/gof3r/bin/gof3r"
