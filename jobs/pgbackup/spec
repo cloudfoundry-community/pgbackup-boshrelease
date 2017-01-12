@@ -33,7 +33,7 @@ properties:
     default: 5432
   pgbackup.username:
     description: "User to connect to PostgreSQL as"
-    default: "PLEASE-CHANGE-THIS"
+    default: "pgbackup"
   pgbackup.password:
     description: "Password to authenticate to PostgreSQL with"
     default: "PLEASE-CHANGE-THIS"
