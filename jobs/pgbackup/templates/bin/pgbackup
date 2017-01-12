@@ -2,9 +2,29 @@
 
 source "$(dirname $(dirname ${0}))/shell/env"
 set +e # do not want to auto-die - instead, log and continue
-# FIXME: use pgbackup.debug
 
 TIMESTAMP=$(date +%Y/%m/%d/%Y%m%d%H%M%S)
+
+# begin proxy configuration
+proxy_host="<%= p('pgbackup.s3.proxy.host') %>"
+proxy_port="<%= p('pgbackup.s3.proxy.port') %>"
+proxy_username="<%= p('pgbackup.s3.proxy.user') %>"
+proxy_password="<%= p('pgbackup.s3.proxy.password') %>"
+
+# check the proxy use a username/password authentication
+if [[ "$proxy_username" == "" ]] || [[ "$proxy_password" == "" ]]; then
+proxy=${proxy_host}:${proxy_port}
+else
+proxy=${proxy_username}:${proxy_password}@${proxy_host}:${proxy_port}
+fi
+
+#--- export proxy parameters
+if [[ $proxy_host != "" ]]; then
+export http_proxy="$proxy"
+export https_proxy="$proxy"
+fi
+# end proxy support
+
 
 # Environment for postgres commands
 PGHOST="<%= p('pgbackup.host') %>"
@@ -33,10 +53,7 @@ end
 
 PGVERSION="<%= pgversion %>"
 export PGHOST PGPORT PGUSER PGPASSWORD PGVERSION
-echo "export PGHOST=$PGHOST"
-echo "export PGPORT=$PGPORT"
-echo "export PGUSER=$PGUSER"
-echo "export PGVERSION=$PGVERSION"
+
 
 PG_DUMP="/var/vcap/packages/${PGVERSION}/bin/pg_dumpall"
 GOF3R="/var/vcap/packages/gof3r/bin/gof3r"
@@ -47,9 +64,38 @@ export AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY
 
 S3_BUCKET="<%= p('pgbackup.s3.bucket') %>"
 S3_PATH="/<%= p('pgbackup.s3.path') %>"
-S3_ENDPOINT= "<%= p('pgbackup.s3.endpoint') %>"
+S3_ENDPOINT="<%= p('pgbackup.s3.endpoint') %>"
+
+echo "export PGHOST=$PGHOST"
+echo "export PGPORT=$PGPORT"
+echo "export PGUSER=$PGUSER"
+echo "export PGVERSION=$PGVERSION"
+echo "use S3_ENDPOINT=$S3_ENDPOINT"
+
+# activate debug mode implies storing passwords in logs file,
+# don't forget to disable it
+debug_mode="<%= p('pgbackup.debug') %>"
+if [[ $debug_mode == "true" ]]; then
+echo "(debug mode) export  PGPASSWORD=$PGPASSWORD"
+echo "(debug mode) export  AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID"
+echo "(debug mode) export  AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY"
+set -x
+fi
+# end debug mode configuration
+
+
+# daily check the existing of a non removed lock and remove if
+daily_clear_lock(){
+current_day=`date +"%d"`
+file_creation_day= `ls -al /tmp/backup.lock | cut -d' ' -f7`
+if [[ $current_day!=file_creation_day ]]; then
+    rm -f "/tmp/backup.lock"
+fi
+}
 
 backup_databases() {
+    # Acquire a lock to ensure we aren't running simultaneous dumps
+    echo "backup in progress"  > /tmp/backup.lock
 	local opts="-c --no-password <%= p('pgbackup.pgdump.arguments') %>"
 	local name="<%= p('pgbackup.name') %>"
 
@@ -62,13 +108,24 @@ backup_databases() {
 	else
 		echo "FAILED to back up!"
 	fi
+	# clear lock after backup
+	rm -f "/tmp/backup.lock"
 }
 
 echo "pgbackup starting up"
-# FIXME: acquire a lock to ensure we aren't running simultaneous dumps
 
-backup_databases
 
-# FIXME: release lock for the next run
+# if the backup process fail the .lock file will be not removed.
+# We wait until tomorrow to automatically release the lock
+daily_clear_lock
+
+# if a backup.lock file exist then we assume that an other dump is running, so we will retry to backup in the next run
+if [ ! -f "/tmp/backup.lock" ]; then
+    backup_databases
+else
+    echo "ERROR : another dump is still running skipping this backup, see logs for more details"
+  
+fi
+
 echo "pgbackup shutting down"
 exit 0

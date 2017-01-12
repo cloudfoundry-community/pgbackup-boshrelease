@@ -1,0 +1,56 @@
+name: REPLACE_WITH_THE_DEPLOYMENT_NAME
+director_uuid: REPLACE_WITH_YOUR_DIRECTOR_UUID
+
+instance_groups:
+- name: pgbackup_TARGETED_DEPLOYMENT_NAME
+  networks:
+  - name: REPLACE_WITH_YOUR_NETWORK_NAME
+    static_ips:
+    - 10.250.2.45
+    cloud_properties:
+      security_groups:
+      - tf-bosh
+      - default
+  vm_type: default
+  stemcell: trusty
+  azs: [z1]
+  instances: 1
+  jobs:
+    - name: pgbackup
+      release: pgbackup
+  properties:
+    pgbackup:
+      host: REPLACE_WITH_TARGETED_DEPLOYMENT_IP_ADRESS
+      port: REPLACE_WITH_TARGETED_DEPLOYMENT_POSTGRES_PORT
+      username: REPLACE_WITH_TARGETED_DEPLOYMENT_USERNAME
+      password: REPLACE_WITH_TARGETED_DEPLOYMENT_PASSWORD
+      schedule:
+        minute: '*'
+        hour: '*'
+        monthday: '*'
+        month: '*'
+        weekday: '*'
+      s3:
+        bucket: REPLACE_WITH_YOUR_BUCKET_NAME
+        access_key_id: REPLACE_WITH_ACCESS_KEY_ID
+        secret_access_key: REPLACE_WITH_SECRET_ACCESS_KEY
+        endpoint: REPLACE_WITH_ENDPOINT_WITHOUT_HTTP_OR_HTTPS
+
+
+update:
+  canaries: 1
+  canary_watch_time: 1000-60000
+  max_in_flight: 1
+  serial: false
+  update_watch_time: 1000-60000
+
+releases:
+- name: pgbackup
+  version: latest
+
+
+stemcells:
+- alias: trusty
+  os: ubuntu-trusty
+  version: latest
+

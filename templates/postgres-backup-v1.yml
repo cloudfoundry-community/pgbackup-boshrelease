@@ -1,0 +1,81 @@
+name: REPLACE_WITH_THE_DEPLOYMENT_NAME
+director_uuid: REPLACE_WITH_YOUR_DIRECTOR_UUID
+
+networks:
+- name: private
+  type: manual
+  subnets:
+  - range: 10.150.0.0/24 # <--- Replace with a private subnet CIDR
+    gateway: 10.150.0.1 # <--- Replace with a private subnet's gateway
+    dns: [10.150.94.244] # <--- Replace with your DNS
+    reserved:
+    - 10.150.0.2 - 10.150.0.79
+    static:
+    - 10.150.0.80 #
+    cloud_properties:
+      net_id: dbf6b31d-bd57-41b3-bd25-a6bf2bea6c9a
+      security_groups:
+      - default
+releases:
+  - {name: pgbackup, version: latest}
+
+
+properties:
+  pgbackup:
+    host: REPLACE_WITH_TARGETED_DEPLOYMENT_IP_ADRESS
+    port: REPLACE_WITH_TARGETED_DEPLOYMENT_POSTGRES_PORT
+    username: REPLACE_WITH_TARGETED_DEPLOYMENT_USERNAME
+    password: REPLACE_WITH_TARGETED_DEPLOYMENT_PASSWORD
+    schedule:
+      minute: '*'
+      hour: '*'
+      monthday: '*'
+      month: '*'
+      weekday: '*'
+    s3:
+      bucket: REPLACE_WITH_YOUR_BUCKET_NAME
+      access_key_id: REPLACE_WITH_ACCESS_KEY_ID
+      secret_access_key: REPLACE_WITH_SECRET_ACCESS_KEY
+      endpoint: REPLACE_WITH_ENDPOINT_WITHOUT_HTTP_OR_HTTPS
+
+
+jobs:
+  - name: pgbackup
+    instances: 1
+    resource_pool: pgbackup-resource
+    templates:
+      - {release: pgbackup, name: pgbackup}
+
+    networks:
+      - name: private
+        default: [dns,gateway]
+        static_ips: [10.150.0.80]
+
+resource_pools:
+  - name: pgbackup-resource
+    network: default
+    stemcell: &stemcell
+      name: bosh-openstack-kvm-ubuntu-trusty-go_agent
+      version: latest
+    cloud_properties:
+      instance_type: s1.small-1
+      disk: 20000
+
+
+compilation:
+  workers: 1
+  network: private
+  reuse_compilation_vms: true
+  cloud_properties:
+    instance_type: n2.highmem-2
+    disk: 20000
+
+update:
+  canaries: 1
+  max_in_flight: 1
+  serial: false
+  canary_watch_time: 1000-60000
+  update_watch_time: 1000-60000
+
+
+

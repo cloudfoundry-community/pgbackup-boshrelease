@@ -19,7 +19,7 @@ echo -e "$(date +'%Y-%m-%dT%H:%M:%S') $(whoami) > $0 $*"
 
 source /var/vcap/jobs/${jobName}/shell/functions
 
-<% if p('pgbackup.debug') == "true" %>turn_debugging_on<% end %>
+
 
 jobPath="/var/vcap/jobs/${jobName}"
 pkgPath="/var/vcap/packages/${jobName}"
