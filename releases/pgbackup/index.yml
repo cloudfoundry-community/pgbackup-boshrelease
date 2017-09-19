@@ -1,7 +1,8 @@
----
 builds:
-  102e1f7d-3350-462e-8f9d-d96626d6a4fd:
-    version: '1'
   0b45e389-7d9d-4d9c-95f9-9e8622260e74:
-    version: '2'
-format-version: '2'
+    version: "2"
+  102e1f7d-3350-462e-8f9d-d96626d6a4fd:
+    version: "1"
+  6eddbe26-cbb1-4c4c-40b5-2ce14bd0777d:
+    version: 2.1.0
+format-version: "2"

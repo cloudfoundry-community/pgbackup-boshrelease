@@ -1,0 +1,54 @@
+name: pgbackup
+version: 2.1.0
+commit_hash: 8e3c25d
+uncommitted_changes: false
+jobs:
+- name: pgbackup
+  version: 8ac51aa8cd64cfb635198dab2ca3120bb0d87264
+  fingerprint: 8ac51aa8cd64cfb635198dab2ca3120bb0d87264
+  sha1: 868f325f073a99d2feb9fe29767f26daabbb50f7
+packages:
+- name: gof3r
+  version: 96b8ccc171ab78a4602e05e8de5fc4ffa20603e5
+  fingerprint: 96b8ccc171ab78a4602e05e8de5fc4ffa20603e5
+  sha1: d5772ee8a4c16535a1a260df3f0c8810bc2e1cac
+  dependencies: []
+- name: pgbackup
+  version: 660be8715fb8a178b8c269727f8406776a08b369
+  fingerprint: 660be8715fb8a178b8c269727f8406776a08b369
+  sha1: 3776ec94b51f4daf19d6368cca0970879dcacb2b
+  dependencies: []
+- name: postgres90
+  version: 948e9509de4f823fd0faa3091783fb17303c37f2
+  fingerprint: 948e9509de4f823fd0faa3091783fb17303c37f2
+  sha1: 6e678063b62413eee2d41303471481a6de54bdb9
+  dependencies: []
+- name: postgres91
+  version: 16ee96299a060c1107630d8b53862db3b544c858
+  fingerprint: 16ee96299a060c1107630d8b53862db3b544c858
+  sha1: 12796e581952dab9328d387080c2d3b51c374827
+  dependencies: []
+- name: postgres92
+  version: 9f16d4bad89b656f23f0fee17683d9be7d44456b
+  fingerprint: 9f16d4bad89b656f23f0fee17683d9be7d44456b
+  sha1: e7c29f36031da3a176cfbb3190390f83be75d3b3
+  dependencies: []
+- name: postgres93
+  version: d18ef4d8ba7aa7d59c51f7ed705c115a0b0f060b
+  fingerprint: d18ef4d8ba7aa7d59c51f7ed705c115a0b0f060b
+  sha1: e6916846bed0b2cd75f8097490d97e6bbac1728e
+  dependencies: []
+- name: postgres94
+  version: 740e42f9661867f42efb43584e13cfee1a42f8d5
+  fingerprint: 740e42f9661867f42efb43584e13cfee1a42f8d5
+  sha1: 835f19c2a2444c3391374922a918fdbf5dfa0540
+  dependencies: []
+- name: postgres95
+  version: 9f1929e673ee8abb756cbb24698e5bc4b0bd1941
+  fingerprint: 9f1929e673ee8abb756cbb24698e5bc4b0bd1941
+  sha1: 93071a58d23c1456db161f04c8c09c396b8b0154
+  dependencies: []
+license:
+  version: 6266e6d72460e0aaccda244014590b4b647434ef
+  fingerprint: 6266e6d72460e0aaccda244014590b4b647434ef
+  sha1: 12c7266a809e4e93927cbb39d7834a60237c0bc5
