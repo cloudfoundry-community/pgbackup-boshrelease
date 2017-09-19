@@ -1,9 +1,8 @@
 ---
 meta:
-  name:    postgresbackup
-  target:  sw
-  url:     https://ci.starkandwayne.com
-  # test-errands: smoke-tests
+  name:     pgbackup
+  target:   sw
+  url:      https://ci.starkandwayne.com
 
   initial_version: 2.1.0
 
