@@ -1,6 +1,6 @@
 ## New Features
 
-- Example openstack manifest for v1/v2 deployments
+- BOSH v2-style manifests, because if it ain't broke, fix it!
 - New proxy support for backup and restore processes
 
 ## Improvements

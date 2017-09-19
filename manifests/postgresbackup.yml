@@ -1,0 +1,29 @@
+name: pgbackup
+
+instance_groups:
+  - name: pgbackup
+    azs: [z1, z2, z3]
+    instances: 2
+    vm_type: default
+    stemcell: default
+    persistent_disk_type: 1GB
+    networks: [{name: default}]
+    jobs:
+    - name:    pgbackup
+      release: pgbackup
+
+update:
+  canaries: 1
+  max_in_flight: 50
+  canary_watch_time: 1000-30000
+  update_watch_time: 1000-30000
+  serial: false
+
+stemcells:
+- alias: default
+  os: ubuntu-trusty
+  version: latest
+
+releases:
+- name: pgbackup
+  version: latest
