@@ -23,6 +23,8 @@ stemcells:
 - alias: default
   os: ubuntu-trusty
   version: latest
+
+releases:
 - name: pgbackup
   version: 2.1.0
   url: https://github.com/cloudfoundry-community/pgbackup-boshrelease/releases/download/v2.1.0/pgbackup-2.1.0.tgz
